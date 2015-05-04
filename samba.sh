@@ -4,13 +4,14 @@
 #
 #         USAGE: ./samba.sh
 #
-#   DESCRIPTION: Entrypoint for samba docker container
+#   DESCRIPTION: Entrypoint for samba docker container with public access
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
 #        AUTHOR: David Personette (dperson@gmail.com),
+#      MODIFIED: Eduard Kibort 05/04/2015
 #  ORGANIZATION:
 #       CREATED: 09/28/2014 12:11
 #      REVISION: 1.0
@@ -25,15 +26,19 @@ set -o nounset                              # Treat unset variables as an error
 #   browseable) 'yes' or 'no'
 #   readonly) 'yes' or 'no'
 #   guest) 'yes' or 'no'
+#   writable) 'yes' or 'no'
+#   public) 'yes' or 'no'
 #   users) list of allowed users
 # Return: result
 share() { local share="$1" path="$2" browse=${3:-yes} ro=${4:-yes}\
-                guest=${5:-yes} users=${6:-""} file=/etc/samba/smb.conf
+                guest=${5:-yes} rw=${6:-no} pub=${7:-yes} users=${6:-""} file=/etc/samba/smb.conf
     sed -i "/\\[$share\\]/,/^\$/d" $file
     echo "[$share]" >> $file
     echo "   path = $path" >> $file
     echo "   browseable = $browse" >> $file
     echo "   read only = $ro" >> $file
+    echo "   writable = $rw" >> $file
+    echo "   public = $pub" >> $file
     echo "   guest ok = $guest" >> $file
     [[ ${users:-""} ]] &&
         echo "   valid users = $(tr ',' ' ' <<< $users)" >> $file
@@ -70,13 +75,15 @@ usage() { local RC=${1:-0}
     echo "Usage: ${0##*/} [-opt] [command]
 Options (fields in '[]' are optional, '<>' are required):
     -h          This help
-    -s \"<name;/path>[;browse;readonly;guest;users]\" Configure a share
+    -s \"<name;/path>[;browse;readonly;guest;writable;public;users]\" Configure a share
                 required arg: \"<name>;<comment>;</path>\"
                 <name> is how it's called for clients
                 <path> path to share
                 [browseable] default:'yes' or 'no'
                 [readonly] default:'yes' or 'no'
                 [guest] allowed default:'yes' or 'no'
+                [writable] default:'no' or 'yes'
+                [public]  default:'yes' or 'no'
                 [users] allowed default:'all' or list of allowed users
     -t \"\"       Configure timezone
                 possible arg: \"[timezone]\" - zoneinfo timezone for container

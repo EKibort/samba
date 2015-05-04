@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER David Personette <dperson@dperson.com>
+MAINTAINER Eduard Kibort
 
 # Install samba
 RUN export DEBIAN_FRONTEND='noninteractive' && \
@@ -18,6 +18,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     echo '   force directory mode = 0775' >> /etc/samba/smb.conf && \
     echo '   force user = smbuser' >> /etc/samba/smb.conf && \
     echo '   force group = users' >> /etc/samba/smb.conf && \
+    echo '   guest account = smbuser' >> /etc/samba/smb.conf && \
     echo '' >> /etc/samba/smb.conf
 COPY samba.sh /usr/bin/
 

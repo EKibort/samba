@@ -31,14 +31,16 @@ OR set local storage:
     Usage: samba.sh [-opt] [command]
     Options (fields in '[]' are optional, '<>' are required):
         -h          This help
-        -s "<name;/path>[;browse;readonly;guest;users]" Configure a share
-                    required arg: "<name>;<comment>;</path>"
-                    <name> is how it's called for clients
-                    <path> path to share
-                    [browseable] default:'yes' or 'no'
-                    [readonly] default:'yes' or 'no'
-                    [guest] allowed default:'yes' or 'no'
-                    [users] allowed default:'all' or list of allowed users
+        -s \"<name;/path>[;browse;readonly;guest;writable;public;users]\" Configure a share
+                required arg: \"<name>;<comment>;</path>\"
+                <name> is how it's called for clients
+                <path> path to share
+                [browseable] default:'yes' or 'no'
+                [readonly] default:'yes' or 'no'
+                [guest] allowed default:'yes' or 'no'
+                [writable] default:'no' or 'yes'
+                [public]  default:'yes' or 'no'
+                [users] allowed default:'all' or list of allowed users
         -t ""       Configure timezone
                     possible arg: "[timezone]" - zoneinfo timezone for container
         -u "<username;password>"       Add a user
