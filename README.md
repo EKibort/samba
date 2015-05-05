@@ -16,17 +16,17 @@ By default there are no shares configured, additional ones can be added.
 
 ## Hosting a Samba instance
 
-    sudo docker run -p 139:139 -p 445:445 -d dperson/samba
+    sudo docker run -p 139:139 -p 445:445 -d advard/samba
 
 OR set local storage:
 
     sudo docker run --name samba -p 139:139 -p 445:445 \
                 -v /path/to/directory:/mount \
-                -d dperson/samba
+                -d advard/samba
 
 ## Configuration
 
-    sudo docker run -it --rm dperson/samba -h
+    sudo docker run -it --rm advard/samba -h
 
     Usage: samba.sh [-opt] [command]
     Options (fields in '[]' are optional, '<>' are required):
@@ -61,17 +61,17 @@ ENVIROMENT VARIABLES (only available with `docker run`)
 Any of the commands can be run at creation with `docker run` or later with
 `docker exec samba.sh` (as of version 1.3 of docker).
 
-    sudo docker run -p 139:139 -p 445:445 -d dperson/samba -t EST5EDT
+    sudo docker run -p 139:139 -p 445:445 -d advard/samba -t EST5EDT
 
 Will get you the same settings as
 
-    sudo docker run --name samba -p 139:139 -p 445:445 -d dperson/samba
+    sudo docker run --name samba -p 139:139 -p 445:445 -d advard/samba
     sudo docker exec samba samba.sh -t EST5EDT ls -AlF /etc/localtime
     sudo docker restart samba
 
 ### Start an instance creating users and shares:
 
-    sudo docker run -p 139:139 -p 445:445 -d dperson/samba \
+    sudo docker run -p 139:139 -p 445:445 -d advard/samba \
                 -u "example1;badpass" \
                 -u "example2;badpass" \
                 -s "public;/share" \
@@ -84,4 +84,4 @@ Will get you the same settings as
 ## Issues
 
 If you have any problems with or questions about this image, please contact me
-through a [GitHub issue](https://github.com/dperson/samba/issues).
+through a [GitHub issue](https://github.com/ekibort/samba/issues).
