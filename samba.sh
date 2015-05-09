@@ -31,7 +31,7 @@ set -o nounset                              # Treat unset variables as an error
 #   users) list of allowed users
 # Return: result
 share() { local share="$1" path="$2" browse=${3:-yes} ro=${4:-yes}\
-                guest=${5:-yes} rw=${6:-no} pub=${7:-yes} users=${6:-""} file=/etc/samba/smb.conf
+                guest=${5:-yes} rw=${6:-no} pub=${7:-yes} users=${8:-""} file=/etc/samba/smb.conf
     sed -i "/\\[$share\\]/,/^\$/d" $file
     echo "[$share]" >> $file
     echo "   path = $path" >> $file
